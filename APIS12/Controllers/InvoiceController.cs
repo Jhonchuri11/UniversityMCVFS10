@@ -57,6 +57,7 @@ namespace APIS12.Controllers
             _invoiceContext.Invoices.AddRange(invoices);
             _invoiceContext.SaveChanges();
         }
+
         [HttpPost]
         public void InsertInvoiceDetail(DetailRequestList request)
         {

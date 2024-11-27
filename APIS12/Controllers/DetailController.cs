@@ -1,6 +1,5 @@
 ﻿using APIS12.Models;
 using APIS12.Request;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -43,49 +42,6 @@ namespace APIS12.Controllers
 
             _invoiceContext.SaveChanges();
         }
-
-        /*
-         * [HttpPost]
-        public IEnumerable<Detail> getDetailByInvoiceNumber(DetailRequestV2 deta)
-        {
-            var details = _invoiceContext.Details
-                .Include(x => x.invoice)
-                .Include(x => x.product)
-                .Where(x => x.invoice.InvoiceNumber == deta.InvoiceNumber)
-                .OrderByDescending(x => x.invoice.InvoiceNumber)
-                .ToList();
-         var invoiceDetails = _invoiceContext.Details
-        .Include(i => i.product)      
-        .Include(i => i.invoice)       
-        .Where(i => i.invoice.InvoiceNumber == deta.InvoiceNumber) 
-        .Select(i => new InvoiceDetailDTO
-        {
-            InvoiceNumber = i.invoice.InvoiceNumber,
-            Date = i.invoice.Date,
-            Total = i.invoice.Total,
-            Customer = new CustomerDTO
-            {
-                FirstName = i..FirstName,
-                LastName = i.customer.LastName,
-                DocumentNumber = i.customer.DocumentNumber,
-                Email = i.customer.Email
-            },
-            Details = i.Details.Select(d => new DetailDTO
-            {
-                Amount = d.Amount,
-                Price = d.Price,
-                SubTotal = d.SubTotal,
-                ProductName = d.product.name
-            }).ToList()
-        })
-        .OrderBy(i => i.Customer.FirstName)   // Ordenar por nombre del cliente
-        .ThenBy(i => i.InvoiceNumber)         // Ordenar por número de factura
-        .ToList();
-
-            return details;
-        }
-         * 
-         */
 
         [HttpPost]
         public IEnumerable<Detail> getDetailByInvoiceNumber(DetailRequestV2 deta)

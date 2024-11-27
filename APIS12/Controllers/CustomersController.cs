@@ -1,6 +1,5 @@
 ﻿using APIS12.Models;
 using APIS12.Request;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,21 +38,6 @@ namespace APIS12.Controllers
             _invoiceContext.SaveChanges();
         }
 
-        // method update customer
-        /*
-        [HttpPut]
-        public void UpdateCustomer(int customerID, Customer customer)
-        {
-            if (customerID != customer.CustomerID)
-            {
-                BadRequest();
-            }
-            _invoiceContext.Entry(customer).State = EntityState.Modified;
-            _invoiceContext.SaveChanges();
-        }
-
-        */
-
         [HttpPost]
         public void deleteCustomer(CustomerRequestD request)
         {
@@ -77,7 +61,6 @@ namespace APIS12.Controllers
         [HttpPost]
         public List<Customer> getCustomerByCriteria(CustomerRequestV1 customerRequest)
         {
-            //var query = _invoiceContext.Customers.Where(x => x.Active == true);
             var query = _invoiceContext.Customers.Where(x => x.Active);
 
             if (!string.IsNullOrEmpty(customerRequest.firstName))
