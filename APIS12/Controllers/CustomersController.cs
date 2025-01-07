@@ -1,5 +1,7 @@
 ﻿using APIS12.Models;
 using APIS12.Request;
+using APIS12.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +18,44 @@ namespace APIS12.Controllers
         {
             _invoiceContext = invoiceContext;
         }
+
+        [Authorize]
+        [HttpGet(Name = "Get2")]
+        public IEnumerable<PersonResponse> Get2()
+        {
+            List<PersonResponse> response = new List<PersonResponse>();
+
+            for (int i = 1; i <= 100; i++)
+            {
+                PersonResponse personResponse = new PersonResponse();
+                personResponse.FirstName = "Persona" + i;
+                personResponse.LastName = "Apellido" + i;
+
+                response.Add(personResponse);
+            }
+
+            return response;
+        }
+
+        [Authorize("Administrador")]
+        [HttpGet(Name = "Get")]
+        public IEnumerable<PersonResponse> Get()
+        {
+            List<PersonResponse> personas = new List<PersonResponse>();
+
+            for (int i = 1; i <= 100; i++)
+            {
+                PersonResponse personResponse = new PersonResponse();
+                personResponse.FirstName = "Persona" + i;
+                personResponse.LastName = "Apellido" + i;
+
+                personas.Add(personResponse);
+            }
+
+            return personas;
+        }
+
+
 
         [HttpGet]
         public List<Customer> getAllCustomer()
